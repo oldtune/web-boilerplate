@@ -28,6 +28,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj" />
     <ProjectReference Include="..\Common\Common.csproj" />
+    <ProjectReference Include="..\ThirdParties\ThirdParties.csproj" />
   </ItemGroup>
 
 </Project>

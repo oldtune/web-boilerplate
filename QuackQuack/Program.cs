@@ -16,32 +16,32 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IWordRepository, WordRepository>();
+// builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+// builder.Services.AddScoped<IWordRepository, WordRepository>();
 
-builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
+// builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 
-builder.Services.AddOpenTelemetry()
-    .WithTracing(tracerProviderBuilder =>
-        tracerProviderBuilder
-            .AddSource(DiagnosticsConfig.ActivitySource.Name)
-            .ConfigureResource(resource => resource
-                .AddService(DiagnosticsConfig.ServiceName))
-            .AddAspNetCoreInstrumentation()
-            .AddHttpClientInstrumentation()
-            .AddJaegerExporter()
-            .AddConsoleExporter())
-    .WithMetrics(metricsProviderBuilder =>
-        metricsProviderBuilder
-        .ConfigureResource(resource => resource
-                .AddService(DiagnosticsConfig.ServiceName))
-            .AddAspNetCoreInstrumentation()
-            .AddHttpClientInstrumentation()
-            .AddOtlpExporter(option =>
-            {
-                option.Endpoint = new Uri("http://localhost:4317");
-            })
-            .AddConsoleExporter());
+// builder.Services.AddOpenTelemetry()
+//     .WithTracing(tracerProviderBuilder =>
+//         tracerProviderBuilder
+//             .AddSource(DiagnosticsConfig.ActivitySource.Name)
+//             .ConfigureResource(resource => resource
+//                 .AddService(DiagnosticsConfig.ServiceName))
+//             .AddAspNetCoreInstrumentation()
+//             .AddHttpClientInstrumentation()
+//             .AddJaegerExporter()
+//             .AddConsoleExporter())
+//     .WithMetrics(metricsProviderBuilder =>
+//         metricsProviderBuilder
+//         .ConfigureResource(resource => resource
+//                 .AddService(DiagnosticsConfig.ServiceName))
+//             .AddAspNetCoreInstrumentation()
+//             .AddHttpClientInstrumentation()
+//             .AddOtlpExporter(option =>
+//             {
+//                 option.Endpoint = new Uri("http://localhost:4317");
+//             })
+//             .AddConsoleExporter());
 
 
 builder.Services.AddCors((options) =>
@@ -52,16 +52,16 @@ builder.Services.AddCors((options) =>
     });
 });
 
-builder.Services.AddDbContextPool<DictionaryDbContext>(config =>
-{
-    config.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-    config.UseNpgsql(builder.Configuration.GetConnectionString("Dictionary"), dbOptions =>
-    {
-        dbOptions.CommandTimeout(30);
-        dbOptions.EnableRetryOnFailure();
-        dbOptions.MigrationsAssembly("Data");
-    });
-});
+// builder.Services.AddDbContextPool<DictionaryDbContext>(config =>
+// {
+//     config.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+//     config.UseNpgsql(builder.Configuration.GetConnectionString("Dictionary"), dbOptions =>
+//     {
+//         dbOptions.CommandTimeout(30);
+//         dbOptions.EnableRetryOnFailure();
+//         dbOptions.MigrationsAssembly("Data");
+//     });
+// });
 
 var app = builder.Build();
 
